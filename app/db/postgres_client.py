@@ -1,6 +1,7 @@
 import os
 from functools import lru_cache
 import psycopg2
+import psycopg2.extras
 from dotenv import dotenv_values
 
 config = dotenv_values(".env")
@@ -33,7 +34,8 @@ class PostgresClient:
                 user=self.user,
                 password=self.password
             )
-            self.cursor = self.connection.cursor()
+            self.cursor = self.connection.cursor(
+                cursor_factory=psycopg2.extras.DictCursor)
             print("Connected to PostgreSQL database")
         except psycopg2.Error as e:
             print("Error: Unable to connect to PostgreSQL database")
@@ -61,6 +63,7 @@ class PostgresClient:
             print(e)
 
     def fetch_data(self, query, params=None):
+        # with self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
         try:
             if params:
                 self.cursor.execute(query, params)

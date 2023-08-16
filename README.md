@@ -1,7 +1,3 @@
-# FastAPI Tutorial
-
-This is a simple example FastAPI application that pretends to be a bookstore.
-
 # Deploying to AWS EC2
 
 Log into your AWS account and create an EC2 instance (`t2.micro`), using the latest stable
@@ -31,14 +27,13 @@ And put this config into the file (replace the IP address with your EC2 instance
 
 ```
 server {
-    listen 80;   
-    server_name <YOUR_EC2_IP>;    
-    location / {        
-        proxy_pass http://127.0.0.1:8000;    
+    listen 80;
+    server_name <YOUR_EC2_IP>;
+    location / {
+        proxy_pass http://127.0.0.1:8000;
     }
 }
 ```
-
 
 Start NGINX.
 

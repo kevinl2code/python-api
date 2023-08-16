@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from mangum import Mangum
 from app.db.postgres_client import get_postgres_client
 from contextlib import asynccontextmanager
-from app.routers import user
+from app.routers import user, conversation
 
 
 @asynccontextmanager
@@ -36,6 +36,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI()
 app.include_router(user.router)
+app.include_router(conversation.router)
 handler = Mangum(app)
 
 
